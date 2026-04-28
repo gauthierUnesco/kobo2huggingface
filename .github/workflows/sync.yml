@@ -1,0 +1,28 @@
+name: Sync KoboToolbox → HuggingFace
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # toutes les heures (modifiable)
+  workflow_dispatch:       # permet aussi de lancer manuellement
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installer les dépendances
+        run: pip install requests huggingface_hub
+
+      - name: Lancer la synchronisation
+        env:
+          KOBO_TOKEN: ${{ secrets.KOBO_TOKEN }}
+          HF_TOKEN:   ${{ secrets.HF_TOKEN }}
+        run: python sync.py
