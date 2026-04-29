@@ -2,7 +2,7 @@ name: Sync KoboToolbox → HuggingFace
 
 on:
   schedule:
-    - cron: "0 * * * *"  # toutes les heures (modifiable)
+    - cron: "0 8 * * *"  
   workflow_dispatch:       # permet aussi de lancer manuellement
 
 jobs:
